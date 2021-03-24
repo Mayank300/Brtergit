@@ -1,6 +1,6 @@
 # WELCOME SCREEN:
 
-![](images/home.png)
+![](images/welcome.png)
 
 # LOGIN & SIGNIN PAGE:
 
