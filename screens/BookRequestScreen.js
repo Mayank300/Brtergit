@@ -216,7 +216,7 @@ updateBookRequestStatus=()=>{
     return(
       // Form screen
         <View style={{flex:1}}>
-          <MyHeader title="Request Book" navigation ={this.props.navigation}/>
+          <MyHeader title="Request Item" navigation ={this.props.navigation}/>
 
           <ScrollView>
             <KeyboardAvoidingView style={styles.keyBoardStyle}>
