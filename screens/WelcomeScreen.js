@@ -31,9 +31,24 @@ export default class WelcomeScreen extends Component {
       address: "",
       contact: "",
       confirmPassword: "",
-      isModalVisible: "false"
+      isModalVisible: "false",
+      currencyCode:"",
     };
   }
+
+  userLogin = (emailId, password) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(emailId, password)
+      .then(() => {
+        this.props.navigation.navigate("DonateBooks");
+      })
+      .catch(error => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        return Alert.alert(errorMessage);
+      });
+  };
 
   userSignUp = (emailId, password, confirmPassword) => {
     if (password !== confirmPassword) {
@@ -49,7 +64,8 @@ export default class WelcomeScreen extends Component {
             contact: this.state.contact,
             email_id: this.state.emailId,
             address: this.state.address,
-            IsBookRequestActive: false
+            IsBookRequestActive: false,
+            currency_code: this.state.currencyCode
           });
           return Alert.alert("User Added Successfully", "", [
             {
@@ -65,20 +81,6 @@ export default class WelcomeScreen extends Component {
           return Alert.alert(errorMessage);
         });
     }
-  };
-
-  userLogin = (emailId, password) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(emailId, password)
-      .then(() => {
-        this.props.navigation.navigate("DonateBooks");
-      })
-      .catch(error => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        return Alert.alert(errorMessage);
-      });
   };
 
   showModal = () => {
@@ -163,6 +165,17 @@ export default class WelcomeScreen extends Component {
                   });
                 }}
               />
+              <TextInput
+                style={styles.formTextInput}
+                placeholder ={"     Country currency code"}
+                maxLength ={8}
+                onChangeText={(text)=>{
+                  this.setState({
+                    currencyCode: text
+                  })
+                }}
+              />
+
               <View style={styles.modalBackButton}>
                 <TouchableOpacity
                   style={styles.registerButton}
